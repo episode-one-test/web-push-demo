@@ -162,9 +162,13 @@
                 },
                 async requestPermission() {
                     this.usergesture = false
-                    const permission = await Notification.requestPermission()
-                    if (permission === 'granted') this.subscribe()
-                    else if (permission === 'default') this.usergesture = true
+                    try {
+                        const permission = await Notification.requestPermission()
+                        if (permission === 'granted') this.subscribe()
+                        else if (permission === 'default') this.usergesture = true
+                    } catch(error) {
+                        this.usergesture = true
+                    }
                 },
                 async subscribe() {
                     const applicationServerKey = 'BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiApwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'
